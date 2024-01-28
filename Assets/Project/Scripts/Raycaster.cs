@@ -7,7 +7,7 @@ public class Raycaster : MonoBehaviour
     [SerializeField] private int _maxRaycastHits;
     private RaycastHit[] _hits;
     private Camera _camera;
-    
+
     void Update()
     {
         if (_camera == null)
@@ -15,10 +15,9 @@ public class Raycaster : MonoBehaviour
             _camera = Camera.main;
             if (_camera == null) return;
         }
-        
-        if (_hits.Length != _maxRaycastHits)
-            _hits = new RaycastHit[_maxRaycastHits];
-        
+
+        if (_hits.Length != _maxRaycastHits) _hits = new RaycastHit[_maxRaycastHits];
+
         if (Pointer.current == null) return;
         Vector2Control pos = Pointer.current.position;
         if (pos == null) return;

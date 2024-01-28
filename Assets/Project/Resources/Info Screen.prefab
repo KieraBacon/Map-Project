@@ -519,7 +519,9 @@ GameObject:
   - component: {fileID: 7218833232611491027}
   - component: {fileID: 8314042140367773116}
   - component: {fileID: 9192568955412470471}
+  - component: {fileID: 4332944370953533935}
   - component: {fileID: 6874235793138568703}
+  - component: {fileID: 6815222162553484825}
   m_Layer: 5
   m_Name: Info Screen
   m_TagString: Untagged
@@ -663,6 +665,21 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
+--- !u!114 &4332944370953533935
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2610117227688757503}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c09aa4c28944f8c9f2a297fd0c2167e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _headerText: {fileID: 1112760393392504413}
+  _bodyText: {fileID: 1606969619151478811}
+  _scrollRect: {fileID: 5591826415901199977}
 --- !u!114 &6874235793138568703
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -675,8 +692,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 178bdae9fff94afbb8c93cc2445cedc0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _headerText: {fileID: 1112760393392504413}
-  _bodyText: {fileID: 1606969619151478811}
   _labelCanvasGroup: {fileID: 7677979779674333643}
   _bodyCanvasGroup: {fileID: 3598791521059017354}
   _showTweenSettings:
@@ -700,7 +715,19 @@ MonoBehaviour:
   _hiddenSize: {x: 200, y: 20}
   _hiddenAlpha: 0
   _textChangeDuration: 1
-  _scrollRect: {fileID: 5591826415901199977}
+--- !u!114 &6815222162553484825
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2610117227688757503}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 308f1951e3f248d585d183ef5d7ec98f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _linkHandler: {fileID: 2372471712265684807}
 --- !u!1 &2717208225143333257
 GameObject:
   m_ObjectHideFlags: 0

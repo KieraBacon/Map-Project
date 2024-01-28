@@ -26,3 +26,7 @@ MonoBehaviour:
     <b>Ores</b>: ???
 
     <b>Chemicals</b>: ???'
+  _connectedZones:
+  - {fileID: 11400000, guid: c639878d1d1df6540b056c30c58b8ad1, type: 2}
+  - {fileID: 11400000, guid: 17ef1e3495dbce347a2eb3f3ceb85a12, type: 2}
+  - {fileID: 11400000, guid: 83b24c9dbf104f04a934235dc7e929ac, type: 2}

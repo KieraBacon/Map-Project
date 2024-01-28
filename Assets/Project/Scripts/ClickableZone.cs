@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class ClickableZone : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler, IPointerMoveHandler
+public class ClickableZone : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler
 {
     [SerializeField] private Outline _outline;
     [SerializeField] private ZoneData _data;
@@ -20,23 +20,15 @@ public class ClickableZone : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     {
         _outline.enabled = false;
     }
-    
+
     public void OnPointerDown(PointerEventData eventData)
     {
         if (eventData.button != PointerEventData.InputButton.Left) return;
         InfoScreen infoScreen = InfoScreen.Main;
 
-        if (infoScreen.IsShowingScreenData(_data))
-        {
+        if (infoScreen.CurrentDataMatches(_data))
             infoScreen.Toggle();
-        }
         else
-        {
             infoScreen.Show(_data);
-        }
-    }
-
-    public void OnPointerMove(PointerEventData eventData)
-    {
     }
 }
