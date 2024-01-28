@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class InfoScreen : MonoBehaviour
+public class InfoScreen : MonoBehaviour, IWindow
 {
     private static readonly ResourceObjectNamePair k_Resource = new("Info Screen");
     private static InfoScreen _instance;
@@ -11,7 +11,7 @@ public class InfoScreen : MonoBehaviour
     [SerializeField] private TMP_Text _headerText;
     [SerializeField] private TMP_Text _bodyText;
     [SerializeField] private ScrollRect _scrollRect;
-    private IInfoScreenAnimator _animator;
+    private IWindowAnimator _animator;
 
     public string HeaderText
     {
@@ -25,9 +25,21 @@ public class InfoScreen : MonoBehaviour
         set => _bodyText.text = value;
     }
 
-    private bool _isShowing;
-    public bool IsShowing =>
-        _isShowing;
+    private bool _isVisible;
+    public bool IsVisible
+    {
+        get => _isVisible;
+        set
+        {
+            if (value)
+                Show();
+            else
+                Hide();
+        }
+    }
+    public void Toggle() =>
+        IsVisible = !IsVisible;
+
     private IScreenData _currentData;
     public IScreenData CurrentData =>
         _currentData;
@@ -45,21 +57,14 @@ public class InfoScreen : MonoBehaviour
 
     private void Awake()
     {
-        _animator = GetComponent<IInfoScreenAnimator>();
-    }
-
-    public void Toggle()
-    {
-        if (IsShowing)
-            Hide();
-        else
-            Show();
+        _animator = GetComponent<IWindowAnimator>();
+        _animator.Init();
     }
 
     public void Show(IScreenData data)
     {
-        if (IsShowing && CurrentDataMatches(data)) return;
-        if (!IsShowing)
+        if (IsVisible && CurrentDataMatches(data)) return;
+        if (!IsVisible)
         {
             SetCurrentData(data);
             Show();
@@ -75,7 +80,7 @@ public class InfoScreen : MonoBehaviour
 
     public void Show()
     {
-        _isShowing = true;
+        _isVisible = true;
         if (_animator != null)
             _animator.Show();
         else
@@ -84,7 +89,7 @@ public class InfoScreen : MonoBehaviour
 
     public void Hide()
     {
-        _isShowing = false;
+        _isVisible = false;
         if (_animator != null)
             _animator.Hide();
         else

@@ -1,7 +1,8 @@
 ﻿using System;
 
-public interface IInfoScreenAnimator
+public interface IWindowAnimator
 {
+    void Init();
     void Show();
     void Hide();
     void Crossfade(Action transitionCallback);

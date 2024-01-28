@@ -3,7 +3,7 @@ using DG.Tweening;
 using UnityEngine;
 
 [RequireComponent(typeof(InfoScreen))]
-public class InfoScreenTweener : MonoBehaviour, IInfoScreenAnimator
+public class InfoScreenTweener : MonoBehaviour, IWindowAnimator
 {
     [Serializable] private struct TweenSettings
     {
@@ -18,7 +18,10 @@ public class InfoScreenTweener : MonoBehaviour, IInfoScreenAnimator
                 (SizeChangeStartTime + SizeChangeDuration),
                 (MainFadeStartTime + MainFadeDuration),
                 (TextFadeStartTime + TextFadeDuration));
-        public bool InteractableAfter;
+        public float AcceptRaycastsAfter;
+        public float IgnoreRaycastsAfter;
+        public float AcceptInteractionsAfter;
+        public float IgnoreInteractionsAfter;
         public Ease Ease;
     }
     
@@ -42,7 +45,7 @@ public class InfoScreenTweener : MonoBehaviour, IInfoScreenAnimator
     private Sequence _textTween;
     [SerializeField] private float _textChangeDuration;
 
-    private void Awake()
+    public void Init()
     {
         _mainCanvasGroup = GetComponent<CanvasGroup>();
         _rectTransform = GetComponent<RectTransform>();
@@ -81,8 +84,12 @@ public class InfoScreenTweener : MonoBehaviour, IInfoScreenAnimator
         _rectTransform.sizeDelta = size;
         _mainCanvasGroup.alpha = alpha;
         _bodyCanvasGroup.alpha = alpha;
-        _mainCanvasGroup.interactable = settings.InteractableAfter;
-        _bodyCanvasGroup.interactable = settings.InteractableAfter;
+        bool interactableAfter = settings.AcceptInteractionsAfter >= 0 && settings.AcceptInteractionsAfter > settings.IgnoreInteractionsAfter;
+        _mainCanvasGroup.interactable = interactableAfter;
+        _bodyCanvasGroup.interactable = interactableAfter;
+        bool raycastableAfter = settings.AcceptRaycastsAfter >= 0 && settings.AcceptRaycastsAfter > settings.IgnoreRaycastsAfter;
+        _mainCanvasGroup.blocksRaycasts = raycastableAfter;
+        _bodyCanvasGroup.blocksRaycasts = raycastableAfter;
         return false;
     }
 
@@ -112,8 +119,12 @@ public class InfoScreenTweener : MonoBehaviour, IInfoScreenAnimator
             !(Math.Abs(_bodyCanvasGroup.alpha - _shownAlpha) < tolerance))
             return true;
 
-        _mainCanvasGroup.interactable = settings.InteractableAfter;
-        _bodyCanvasGroup.interactable = settings.InteractableAfter;
+        bool interactableAfter = settings.AcceptInteractionsAfter >= 0 && settings.AcceptInteractionsAfter > settings.IgnoreInteractionsAfter;
+        _mainCanvasGroup.interactable = interactableAfter;
+        _bodyCanvasGroup.interactable = interactableAfter;
+        bool raycastableAfter = settings.AcceptRaycastsAfter >= 0 && settings.AcceptRaycastsAfter > settings.IgnoreRaycastsAfter;
+        _mainCanvasGroup.blocksRaycasts = raycastableAfter;
+        _bodyCanvasGroup.blocksRaycasts = raycastableAfter;
         return false;
     }
 
@@ -123,21 +134,35 @@ public class InfoScreenTweener : MonoBehaviour, IInfoScreenAnimator
         if (!CheckTarget(settings, alpha, size)) return;
         if (!CheckCurrent(settings, alpha, size)) return;
 
+        void SetInteractable(bool value)
+        {
+            _mainCanvasGroup.interactable = value;
+            _bodyCanvasGroup.interactable = value;
+            _labelCanvasGroup.interactable = value;
+        }
+        
+        void SetRaycastable(bool value)
+        {
+            _mainCanvasGroup.blocksRaycasts = value;
+            _bodyCanvasGroup.blocksRaycasts = value;
+            _labelCanvasGroup.blocksRaycasts = value;
+        }
+        
         _showHideTween?.Kill();
         _targetAlpha = alpha;
-        _mainCanvasGroup.blocksRaycasts = settings.InteractableAfter;
-        _mainCanvasGroup.interactable = false;
-        _bodyCanvasGroup.interactable = false;
         _showHideTween = DOTween.Sequence(this).SetEase(settings.Ease)
             .Insert(settings.SizeChangeStartTime, DOTween.To(() => _rectTransform.sizeDelta, value => _rectTransform.sizeDelta = value, size, settings.SizeChangeDuration))
             .Insert(settings.MainFadeStartTime, DOTween.To(() => _mainCanvasGroup.alpha, value => _mainCanvasGroup.alpha = value, alpha, settings.MainFadeDuration))
-            .Insert(settings.TextFadeStartTime, DOTween.To(() => _bodyCanvasGroup.alpha, value => _bodyCanvasGroup.alpha = value, alpha, settings.TextFadeDuration))
-            .AppendCallback(() =>
-            {
-                _mainCanvasGroup.blocksRaycasts = true;
-                _mainCanvasGroup.interactable = settings.InteractableAfter;
-                _bodyCanvasGroup.interactable = settings.InteractableAfter;
-            });
+            .Insert(settings.TextFadeStartTime, DOTween.To(() => _bodyCanvasGroup.alpha, value => _bodyCanvasGroup.alpha = value, alpha, settings.TextFadeDuration));
+        if (settings.IgnoreInteractionsAfter >= 0)
+            _showHideTween.InsertCallback(settings.IgnoreInteractionsAfter, () => SetInteractable(false));
+        if (settings.AcceptInteractionsAfter >= 0)
+            _showHideTween.InsertCallback(settings.AcceptInteractionsAfter, () => SetInteractable(true));
+        if (settings.IgnoreRaycastsAfter >= 0)
+            _showHideTween.InsertCallback(settings.IgnoreRaycastsAfter, () => SetRaycastable(false));
+        if (settings.AcceptRaycastsAfter >= 0)
+            _showHideTween.InsertCallback(settings.AcceptRaycastsAfter, () => SetRaycastable(true));
+        
         DOTween.Play(_showHideTween);
     }
 

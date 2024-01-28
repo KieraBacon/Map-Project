@@ -701,7 +701,10 @@ MonoBehaviour:
     MainFadeDuration: 2
     TextFadeStartTime: 1.8
     TextFadeDuration: 0.2
-    InteractableAfter: 1
+    AcceptRaycastsAfter: 0
+    IgnoreRaycastsAfter: -1
+    AcceptInteractionsAfter: 1.5
+    IgnoreInteractionsAfter: 0
     Ease: 12
   _hideTweenSettings:
     SizeChangeStartTime: 0.2
@@ -710,7 +713,10 @@ MonoBehaviour:
     MainFadeDuration: 2
     TextFadeStartTime: 0
     TextFadeDuration: 0.2
-    InteractableAfter: 0
+    AcceptRaycastsAfter: -1
+    IgnoreRaycastsAfter: 0
+    AcceptInteractionsAfter: -1
+    IgnoreInteractionsAfter: 0
     Ease: 12
   _hiddenSize: {x: 200, y: 20}
   _hiddenAlpha: 0
@@ -778,6 +784,7 @@ GameObject:
   - component: {fileID: 2475074301662814221}
   - component: {fileID: 8206442128725308201}
   - component: {fileID: 6652900279532080586}
+  - component: {fileID: 4417906359773935108}
   m_Layer: 5
   m_Name: Close Button
   m_TagString: Untagged
@@ -887,19 +894,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2475074301662814221}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 6874235793138568703}
-        m_TargetAssemblyTypeName: InfoScreen, Assembly-CSharp
-        m_MethodName: Hide
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &6652900279532080586
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -920,6 +915,18 @@ MonoBehaviour:
   m_FlexibleWidth: 0
   m_FlexibleHeight: 0
   m_LayoutPriority: 1
+--- !u!114 &4417906359773935108
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3137557901220321851}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 79554438f126435f8aafe543f83080b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5245668480768975615
 GameObject:
   m_ObjectHideFlags: 0
