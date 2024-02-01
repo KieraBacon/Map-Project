@@ -27,3 +27,20 @@ MonoBehaviour:
 
     <b>Chemicals</b>: ???'
   _connectedZones: []
+  _zoneData:
+    Name: The Flow
+    Description: '<b>Recommended Level</b>: ???
+
+
+      <b>Description</b>: ???
+
+
+      <b>Enemies</b>:
+      ???
+
+      <b>Herbs</b>: ???
+
+      <b>Ores</b>: ???
+
+      <b>Chemicals</b>:
+      ???'

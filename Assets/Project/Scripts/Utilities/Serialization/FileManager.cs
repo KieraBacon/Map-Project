@@ -9,9 +9,10 @@ public class FileManager : IDisposable
     public FileReader FileReader = new FileReader();
     public Serializer Serializer = new Serializer();
     public Deserializer Deserializer = new Deserializer();
-
-    public static string DefaultFilePath(string filename) =>
-        Path.Combine(Application.dataPath, filename);
+    public string DefaultFilePath = Path.Combine("Project", "Data");
+    
+    public string CombinePath(string filename) =>
+        Path.Combine(Application.dataPath, DefaultFilePath, filename);
 
     public bool TryDeserializeFromFile<T>(string path, out T result)
     {
@@ -23,7 +24,7 @@ public class FileManager : IDisposable
 
     public static T Load<T>(string fileName, bool throwFailure = true)
     {
-        string filePath = DefaultFilePath(fileName);
+        string filePath = Instance.CombinePath(fileName);
         if (!Instance.TryDeserializeFromFile(filePath, out T result) && throwFailure) throw new Exception($"Unable to load {typeof(T)} object from file at path {filePath}.");
         return result;
     }
@@ -37,7 +38,7 @@ public class FileManager : IDisposable
 
     public static void Save<T>(string fileName, T obj, bool throwFailure = true)
     {
-        string filePath = DefaultFilePath(fileName);
+        string filePath = Instance.CombinePath(fileName);
         if (!Instance.TrySerializeToFile(filePath, obj) && throwFailure) throw new Exception($"Unable to save object of type {typeof(T)} to file at path {filePath}.");
     }
 

@@ -15,7 +15,7 @@ MonoBehaviour:
   _description: '<b>Recommended Level</b>: 4-7
 
 
-    <b>Description</b>The verdant
+    <b>Description</b>: The verdant
     marsh lands surrounding lake Ancahato are filled with all manner of dangerous
     swamp creatures, dangerouser swamp plants, and Kobalds. It''s a great location
     for aspiring alchemists to venture for their initial experiments, provided they
@@ -32,3 +32,26 @@ MonoBehaviour:
 
     <b>Chemicals</b>:
     Morte Gas, Silverwater, Peat'
+  _connectedZones: []
+  _zoneData:
+    Name: Mrrmarash
+    Description: '<b>Recommended Level</b>: 4-7
+
+
+      <b>Description</b>: The verdant
+      marsh lands surrounding lake Ancahato are filled with all manner of dangerous
+      swamp creatures, dangerouser swamp plants, and Kobalds. It''s a great location
+      for aspiring alchemists to venture for their initial experiments, provided
+      they can survive, as useful materials are abundant and high quality.
+
+
+      <b>Enemies</b>:
+      Venus Mancatcher, Poison Ivy, Kobald, Giant Mosquito, Crocodile
+
+      <b>Herbs</b>:
+      Chalkadonny, Silverfrond, Marshweed
+
+      <b>Ores</b>: Iron, Cobalt
+
+      <b>Chemicals</b>:
+      Morte Gas, Silverwater, Peat'
