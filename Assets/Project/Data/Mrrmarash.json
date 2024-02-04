@@ -1,5 +1,6 @@
 {
-  "Type": "Zone",
+  "Type": "ZoneData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+  "Category": "Zone",
   "Name": "Mrrmarash",
   "Description": "<b>Recommended Level</b>: 4-7\n\n<b>Description</b>: The verdant marsh lands surrounding lake Ancahato are filled with all manner of dangerous swamp creatures, dangerouser swamp plants, and Kobalds. It's a great location for aspiring alchemists to venture for their initial experiments, provided they can survive, as useful materials are abundant and high quality.\n\n<b>Enemies</b>: Venus Mancatcher, Poison Ivy, Kobald, Giant Mosquito, Crocodile\n<b>Herbs</b>: Chalkadonny, Silverfrond, Marshweed\n<b>Ores</b>: Iron, Cobalt\n<b>Chemicals</b>: Morte Gas, Silverwater, Peat"
 }

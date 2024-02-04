@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: New Zone Data
   m_EditorClassIdentifier: 
   _zoneData:
-    _description: 
-    _links: []
+    _description: Mrgar
+    _links:
+    - Kobald

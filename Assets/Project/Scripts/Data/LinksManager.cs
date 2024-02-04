@@ -7,12 +7,6 @@ using Newtonsoft.Json.Linq;
 
 public class LinksManager
 {
-    private Dictionary<string, string> _categoryTypes = new Dictionary<string, string>()
-    {
-        {"Zone", typeof(ZoneData).AssemblyQualifiedName},
-        {"Creature", typeof(ZoneData).AssemblyQualifiedName},
-    };
-    
     private static LinksManager _instance;
     public static LinksManager Main =>
         _instance ??= new LinksManager();
@@ -32,9 +26,8 @@ public class LinksManager
         if (!fileManager.TryDeserializeFromFile(filePath, out JObject jObj)) return false;
 
         // Convert to appropriate type.
-        if (!jObj.TryGetValue("Type", out JToken category) || string.IsNullOrWhiteSpace(category.ToString())) return false;
-        if (!_categoryTypes.TryGetValue(category.ToString(), out string typeName)) return false;
-        Type type = Type.GetType(typeName);
+        if (!jObj.TryGetValue("Type", out JToken typeToken) || string.IsNullOrWhiteSpace(typeToken.ToString())) return false;
+        Type type = Type.GetType(typeToken.ToString());
         if (type == null) return false;
 
         // Determine if the resulting type is ILinkable.
