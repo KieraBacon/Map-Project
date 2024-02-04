@@ -9,10 +9,11 @@ public class FileManager : IDisposable
     public FileReader FileReader = new FileReader();
     public Serializer Serializer = new Serializer();
     public Deserializer Deserializer = new Deserializer();
+    public string DefaultFileExtension = ".json";
     public string DefaultFilePath = Path.Combine("Project", "Data");
     
     public string CombinePath(string filename) =>
-        Path.Combine(Application.dataPath, DefaultFilePath, filename);
+        Path.Combine(Application.dataPath, DefaultFilePath, filename + DefaultFileExtension);
 
     public bool TryDeserializeFromFile<T>(string path, out T result) where T : new()
     {

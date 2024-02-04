@@ -1,0 +1,9 @@
+{
+  "Type": "ZoneData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+  "Category": "Zone",
+  "Name": "New Zone Data",
+  "Description": "Mrgar",
+  "Links": [
+    "Kobald"
+  ]
+}

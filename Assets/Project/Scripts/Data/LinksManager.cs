@@ -7,10 +7,10 @@ using Newtonsoft.Json.Linq;
 
 public class LinksManager
 {
-    private Dictionary<string, string> _knownTypes = new Dictionary<string, string>()
+    private Dictionary<string, string> _categoryTypes = new Dictionary<string, string>()
     {
-        {"Zone", typeof(ZoneData).FullName},
-        {"Creature", typeof(ZoneData).FullName},
+        {"Zone", typeof(ZoneData).AssemblyQualifiedName},
+        {"Creature", typeof(ZoneData).AssemblyQualifiedName},
     };
     
     private static LinksManager _instance;
@@ -28,17 +28,19 @@ public class LinksManager
 
         // Find, read, and deserialize the file.
         FileManager fileManager = FileManager.Instance;
-        string filePath = fileManager.CombinePath($"{path}.json");
+        string filePath = fileManager.CombinePath(path);
         if (!fileManager.TryDeserializeFromFile(filePath, out JObject jObj)) return false;
 
         // Convert to appropriate type.
-        if (!jObj.TryGetValue("Type", out JToken typeValue) || string.IsNullOrWhiteSpace(typeValue.ToString())) return false;
-        if (!_knownTypes.TryGetValue(typeValue.ToString(), out string fullTypeName)) return false;
-        Type type = Type.GetType(fullTypeName);
+        if (!jObj.TryGetValue("Type", out JToken category) || string.IsNullOrWhiteSpace(category.ToString())) return false;
+        if (!_categoryTypes.TryGetValue(category.ToString(), out string typeName)) return false;
+        Type type = Type.GetType(typeName);
         if (type == null) return false;
 
         // Determine if the resulting type is ILinkable.
-        result = JsonConvert.DeserializeObject(jObj.ToString(), type) as ILinkable;
+        string str = jObj.ToString();
+        object vvv = JsonConvert.DeserializeObject(str, type);
+        result = vvv as ILinkable;
         if (result == null) return false;
 
         // Register it!

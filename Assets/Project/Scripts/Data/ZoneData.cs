@@ -4,15 +4,15 @@ using System.Linq;
 using Newtonsoft.Json;
 using UnityEngine;
 
-[Serializable] public class ZoneData : IDescribable, ILinkable, ICategorizable
+[Serializable, JsonConverter(typeof(PolymorphicObjectConverter))] public class ZoneData : ICategorizable, IDescribable, ILinkable, IPolymorphicObject
 {
-    public const string k_FileExtension = ".json";
-    [JsonIgnore] public string Category => "Zones";
+    [JsonProperty(PropertyName = "Category")] private string _category = "Zone";
+    [JsonIgnore] public string Category => _category;
 
-    [JsonProperty(PropertyName = "Name")] private string _name;
+    [JsonProperty(PropertyName = "Name")] internal string _name;
     [JsonIgnore] public string Name =>
         _name;
-    public string Path =>
+    [JsonIgnore] public string Path =>
         _name;
 
     [JsonProperty(PropertyName = "Description")] [SerializeField, TextArea(1, 100)]
