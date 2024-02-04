@@ -7,6 +7,7 @@ public class Raycaster : MonoBehaviour
     [SerializeField] private int _maxRaycastHits;
     private RaycastHit[] _hits;
     private Camera _camera;
+    [SerializeField] LayerMask _layerMask;
 
     void Update()
     {
@@ -23,7 +24,7 @@ public class Raycaster : MonoBehaviour
         if (pos == null) return;
 
         Ray ray = _camera.ScreenPointToRay(pos.value);
-        int numHits = Physics.RaycastNonAlloc(ray, _hits);
+        int numHits = Physics.RaycastNonAlloc(ray, _hits, 100, _layerMask);
         for (int i = 0; i < numHits; i++)
         {
             RaycastHit hit = _hits[i];

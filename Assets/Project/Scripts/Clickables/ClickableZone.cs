@@ -1,8 +1,10 @@
+using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class ClickableZone : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler
+public class ClickableZone : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler, IPointerMoveHandler
 {
+    public event Action<PointerEventData> OnPointerMoved;
     [SerializeField] private Outline _outline;
 
     private void Awake()
@@ -38,5 +40,10 @@ public class ClickableZone : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         {
             Debug.LogError($"Unable to follow link: {path}.");
         }
+    }
+
+    public void OnPointerMove(PointerEventData eventData)
+    {
+        OnPointerMoved?.Invoke(eventData);
     }
 }
