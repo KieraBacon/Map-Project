@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using UnityEngine;
+﻿using UnityEngine;
 
 [RequireComponent(typeof(InfoScreen))]
 public class InfoScreenLinkHandler : MonoBehaviour
@@ -22,12 +21,16 @@ public class InfoScreenLinkHandler : MonoBehaviour
         _linkHandler.OnLinkClicked -= OnLinkClicked;
     }
 
-    private void OnLinkClicked(string link)
+    private void OnLinkClicked(string path)
     {
-        IScreenData linkData = _infoScreen.CurrentData.Links.FirstOrDefault(x => x.HeaderText == link);
-        if (linkData != null)
+        if (LinksManager.Main.TryGetLinkAtPath(path, out ILinkable linkable) && 
+            linkable is IDescribable describable)
         {
-            _infoScreen.Show(linkData);
+            _infoScreen.Show(describable);
+        }
+        else
+        {
+            Debug.LogError($"Unable to follow link: {path}.");
         }
     }
 }

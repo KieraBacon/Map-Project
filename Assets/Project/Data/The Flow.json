@@ -1,1 +1,5 @@
-{"Name":"The Flow","Description":"<b>Recommended Level</b>: ???\n\n<b>Description</b>: ???\n\n<b>Enemies</b>: ???\n<b>Herbs</b>: ???\n<b>Ores</b>: ???\n<b>Chemicals</b>: ???"}
+{
+  "Type": "Zone",
+  "Name": "The Flow",
+  "Description": "<b>Recommended Level</b>: ???\n\n<b>Description</b>: ???\n\n<b>Enemies</b>: ???\n<b>Herbs</b>: ???\n<b>Ores</b>: ???\n<b>Chemicals</b>: ???"
+}

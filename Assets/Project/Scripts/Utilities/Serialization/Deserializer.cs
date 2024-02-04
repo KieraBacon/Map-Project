@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 
 public class Deserializer
 {
-    public bool TryDeserialize<T>(string data, out T result)
+    public bool TryDeserialize<T>(string data, out T result) where T : new()
     {
         result = default;
         try

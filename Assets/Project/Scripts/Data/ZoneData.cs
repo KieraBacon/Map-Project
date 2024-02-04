@@ -4,23 +4,26 @@ using System.Linq;
 using Newtonsoft.Json;
 using UnityEngine;
 
-[Serializable]
-public class ZoneData : IScreenData
+[Serializable] public class ZoneData : IDescribable, ILinkable, ICategorizable
 {
     public const string k_FileExtension = ".json";
+    [JsonIgnore] public string Category => "Zones";
 
-    [HideInInspector] public string Name;
-    [SerializeField, TextArea(1, 100)] public string Description;
-    [JsonIgnore] private List<IScreenData> _connectedZones = new ();
+    [JsonProperty(PropertyName = "Name")] private string _name;
+    [JsonIgnore] public string Name =>
+        _name;
+    public string Path =>
+        _name;
 
-    [JsonIgnore] private string ConnectedZonesString =>
-        _connectedZones.Any() ? 
-            $"{"Connected Zones".InBold()}: {string.Join(", ", _connectedZones.Select(x => x.HeaderText.WithLink(x.HeaderText)))}" : 
-            "";
-    [JsonIgnore] public string HeaderText =>
-        Name;
-    [JsonIgnore] public string BodyText =>
-        $"{Description}\n{ConnectedZonesString}";
-    [JsonIgnore] public IEnumerable<IScreenData> Links =>
-        _connectedZones;
+    [JsonProperty(PropertyName = "Description")] [SerializeField, TextArea(1, 100)]
+    public string _description;
+
+    [JsonIgnore] public string Description =>
+        string.Join("\n", new List<string>() { _description, LinksString });
+
+    [JsonProperty(PropertyName = "Links")] [SerializeField] private List<string> _links;
+    [JsonIgnore] public IEnumerable<string> Links => _links ?? Enumerable.Empty<string>();
+    private string _linksString;
+    private LinkParser _linkParser;
+    private string LinksString => _linksString ??= !Links.Any() ? "" : (_linkParser ??= new LinkParser()).GetFormattedLinksString(Links, LinksManager.Main);
 }

@@ -40,18 +40,18 @@ public class InfoScreen : MonoBehaviour, IWindow
     public void Toggle() =>
         IsVisible = !IsVisible;
 
-    private IScreenData _currentData;
-    public IScreenData CurrentData =>
+    private IDescribable _currentData;
+    public IDescribable CurrentData =>
         _currentData;
 
-    public bool CurrentDataMatches(IScreenData data) =>
+    public bool CurrentDataMatches(IDescribable data) =>
         _currentData == data;
 
-    private void SetCurrentData(IScreenData value)
+    private void SetCurrentData(IDescribable value)
     {
         _currentData = value;
-        BodyText = _currentData.BodyText;
-        HeaderText = _currentData.HeaderText;
+        HeaderText = _currentData.Name;
+        BodyText = _currentData.Description;
         _scrollRect.verticalNormalizedPosition = 1;
     }
 
@@ -61,7 +61,7 @@ public class InfoScreen : MonoBehaviour, IWindow
         _animator.Init();
     }
 
-    public void Show(IScreenData data)
+    public void Show(IDescribable data)
     {
         if (IsVisible && CurrentDataMatches(data)) return;
         if (!IsVisible)

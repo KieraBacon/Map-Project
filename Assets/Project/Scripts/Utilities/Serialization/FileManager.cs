@@ -14,7 +14,7 @@ public class FileManager : IDisposable
     public string CombinePath(string filename) =>
         Path.Combine(Application.dataPath, DefaultFilePath, filename);
 
-    public bool TryDeserializeFromFile<T>(string path, out T result)
+    public bool TryDeserializeFromFile<T>(string path, out T result) where T : new()
     {
         result = default;
         if (!FileReader.TryReadFromFile(path, out string data)) return false;
@@ -22,7 +22,7 @@ public class FileManager : IDisposable
         return true;
     }
 
-    public static T Load<T>(string fileName, bool throwFailure = true)
+    public static T Load<T>(string fileName, bool throwFailure = true) where T : new()
     {
         string filePath = Instance.CombinePath(fileName);
         if (!Instance.TryDeserializeFromFile(filePath, out T result) && throwFailure) throw new Exception($"Unable to load {typeof(T)} object from file at path {filePath}.");
